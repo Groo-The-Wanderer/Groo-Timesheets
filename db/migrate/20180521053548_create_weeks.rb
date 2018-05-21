@@ -9,7 +9,7 @@ class CreateWeeks < ActiveRecord::Migration[5.2]
       t.date :day4_date
       t.date :day5_date
       t.date :day6_date
-      t.string :day7_date
+      t.date :day7_date
 
       t.timestamps
     end

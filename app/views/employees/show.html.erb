@@ -1,0 +1,16 @@
+<h1>Employee <%= @employee.name %></h1>
+
+<p>Name: <%= @employee.name %></p>
+<p>Email: <%= @employee.email %></p>
+<p>Start Date: <%= @employee.start_date %></p>
+<p>End Date: <%= @employee.end_date %></p>
+
+<h2>Assigned Projects:</h2>
+<ul>
+<% @projects.each do |p| %>
+    <li><%= link_to p.name, project_path( p ) %> (<%= p.client.name %>)</li>
+<% end %>
+</ul>
+
+<%= link_to "Edit", edit_employee_path( @employee ) %>
+<%= link_to "Delete", employee_path( @employee ), method: :delete %>

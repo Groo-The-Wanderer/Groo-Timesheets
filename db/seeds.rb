@@ -8,6 +8,10 @@
 
 Client.destroy_all
 Project.destroy_all
+Activity.destroy_all
+Week.destroy_all
+Employee.destroy_all
+Assignment.destroy_all
 
 # Client
 c1 = Client.create name: "Commonwealth Bank of Australia", prefix: "CBA", project_count: 0
@@ -116,4 +120,5 @@ e1 = Employee.create name: "Brendan Leonard", email: "bl@gmail.com", start_date:
 e2 = Employee.create name: "Nathan", email: "nathan@gmail.com", start_date: "2018/01/15"
 puts "Created [#{ Employee.all.length }] Employees"
 
-
+e1.projects << p1 << p2 << p3 << p4
+e2.projects << p1 << p4

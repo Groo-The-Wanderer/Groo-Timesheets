@@ -1,0 +1,17 @@
+<h1>Project <%= @project.name %></h1>
+
+<p>Name: <%= @project.name %></p>
+<p>Client: <%= @project.client.name %></p>
+<p>Start Date: <%= @project.start_date %></p>
+<p>End Date: <%= @project.end_date %></p>
+<p>Billable: <%= @project.billable_flag %></p>
+
+<h2>Activities:</h2>
+<ul>
+<% @activities.each do |a| %>
+    <li><%= link_to a.name, activity_path( a ) %></li>
+<% end %>
+</ul>
+
+<%= link_to "Edit", edit_project_path( @project ) %>
+<%= link_to "Delete", project_path( @project ), method: :delete %>

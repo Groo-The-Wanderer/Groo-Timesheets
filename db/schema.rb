@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_20_235136) do
+ActiveRecord::Schema.define(version: 2018_05_21_053548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 2018_05_20_235136) do
     t.date "day4_date"
     t.date "day5_date"
     t.date "day6_date"
-    t.string "day7_date"
+    t.date "day7_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

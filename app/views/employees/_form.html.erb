@@ -1,0 +1,19 @@
+<%= form_for @employee do |e| %>
+
+  <%= e.label :name %>
+  <%= e.text_field :name %>
+  <br>
+  <%= e.label :email %>
+  <%= e.text_field :email %>
+  <br>
+  <%= e.label :start_date %>
+  <%= e.date_field :start_date %>
+  <br>
+  <%= e.label :end_date %>
+  <%= e.date_field :end_date %>
+  <br>
+  <br>
+  <br>
+  <%= e.submit %>
+
+<% end %>

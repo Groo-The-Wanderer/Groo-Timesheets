@@ -1,7 +1,32 @@
 #!/bin/bash
 
+usage() {
+  echo "Usage: $0 [-G] [-C]" 1>&2;
+  echo "-G : Do not run 'rails generate model ...'
+  echo "-C : Do not run 'rails generate controller ...'
+  exit 1;
+}
+
+while getopts ":GC" o; do
+  case "${o}" in
+    G) SKIP_MODEL=1
+       ;;
+    C) SKIP_CONTROLLER=1
+       ;;
+    ?)
+    usage
+    ;;
+  esac
+done
+shift $((OPTIND-1))
+
+# Defaults
+SKIP_MODEL=${SKIP_MODEL:-0}
+SKIP_CONTROLLER=${SKIP_CONTROLLER:-0}
+
 tab="  "
-script="./project1_generate"
+model_create_script="./project1_create_models"
+controller_create_script="./project1_create_controllers"
 model_dir="/Users/brendanleonard/wdi/projects/project1/app/models"
 
 log() {
@@ -19,21 +44,27 @@ generate_field_list() {
 
 generate_model_create() {
   log "Creating ${model} model"
-  printf "%s%s\n" "rails generate model ${model} ${fields}" >> ${script}
+  printf "rails generate model %s %s --force\n" "${model} ${fields}" >> ${model_create_script}
   log "Finished Creating ${model} model"
 }
 
-if [ -n "${1}" ] && [ ${1} == "-G" ]; then
-  log "Skipping RAILS generate. Moving to models relationship setup"
+generate_controller_create() {
+  log "Creating ${controller} controller"
+  printf "rails generate controller %s new create index show edit update destroy\n" "${controller}" >> ${controller_create_script}
+  log "Finished Creating ${controller} controller"
+}
+
+if [ -n "${SKIP_MODEL}" -eq 1 ]; then
+  log "Skipping RAILS model generation due to -G flag argument. Moving to models relationship setup"
 else
-  log "Generating ${script}"
-  if [ -f "${script}" ]; then
-    renamed=${script}.$(date +'%Y%m%d%H%M%S')
-    log "Script [${script}] exists - renaming to [${renamed}]"
-    mv ${script} ${script}.$(date +'%Y%m%d%H%M%S')
+  log "Generating ${model_create_script}"
+  if [ -f "${model_create_script}" ]; then
+    renamed=${model_create_script}.$(date +'%Y%m%d%H%M%S')
+    log "Script [${model_create_script}] exists - renaming to [${renamed}]"
+    mv ${model_create_script} ${model_create_script}.$(date +'%Y%m%d%H%M%S')
   fi
-  touch ${script}
-  chmod 755 ${script}
+  touch ${model_create_script}
+  chmod 755 ${model_create_script}
   
   model="Client"
   fields="name:string prefix:string project_count:integer"
@@ -70,11 +101,20 @@ else
   model="Assignment"
   fields="employee_id:integer project_id:integer start_date:date end_date:date"
   generate_model_create
-  
-  log "Running generate model script [${script}]"
-  ${script}
+
+  log "Running generate model script [${model_create_script}]"
+  ${model_create_script}
 fi
-  
+
+log "Dropping databases"
+rails db:drop
+log "Creating databases"
+rails db:create
+log "Migrating databases"
+rails db:migrate
+log "Seeding databases"
+rails db:seed
+
 log "Establishing relationships in model files"
 for file in $(ls -1 ${model_dir}); do
   model_file="${model_dir}/${file}"
@@ -156,7 +196,7 @@ for file in $(ls -1 ${model_dir}); do
                       next }1' ${model_file} > ${model_file}.new
       mv ${model_file}.new ${model_file}
       ;;
-    assignments)
+    assignment)
       awk '/^class/ { print;
                       print "  belongs_to :project"
                       print "  belongs_to :employee"
@@ -167,3 +207,23 @@ for file in $(ls -1 ${model_dir}); do
       log "No relationship for model [${model}]"
   esac
 done
+
+if [ -n "${SKIP_CONTROLLER}" -eq 1 ]; then
+  log "Skipping RAILS controller generation due to -C flag argument. Moving to models relationship setup"
+else
+  log "Generating ${controller_create_script}"
+  if [ -f "${controller_create_script}" ]; then
+    renamed=${controller_create_script}.$(date +'%Y%m%d%H%M%S')
+    log "Script [${controller_create_script}] exists - renaming to [${renamed}]"
+    mv ${controller_create_script} ${controller_create_script}.$(date +'%Y%m%d%H%M%S')
+  fi
+  touch ${controller_create_script}
+  chmod 755 ${controller_create_script}
+
+  for controller in Clients Projects Activities Timesheets Weeks Employees TimesheetDetails TimesheetHistories Assignments; do
+    generate_controller_create
+  done
+
+  log "Running generarte controller script [${controller_create_script}]"
+  ${controller_create_script}
+fi
