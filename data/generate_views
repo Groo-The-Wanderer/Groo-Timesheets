@@ -1,0 +1,116 @@
+#!/bin/bash
+
+log() {
+  output_date=$(date +'%Y%m%d:%H:%M:%S')
+  output_line=$(printf "[%s] %s\n" $output_date "$@")
+  echo ${output_line}
+}
+
+model_list[0]="activities"
+model_list[1]="assignments"
+model_list[2]="clients"
+model_list[3]="employees"
+model_list[4]="projects"
+model_list[5]="timesheet_details"
+model_list[6]="timesheet_histories"
+model_list[7]="timesheets"
+model_list[8]="weeks"
+
+model_list_singular[0]="activity"
+model_list_singular[1]="assignment"
+model_list_singular[2]="client"
+model_list_singular[3]="employee"
+model_list_singular[4]="project"
+model_list_singular[5]="timesheet_detail"
+model_list_singular[6]="timesheet_history"
+model_list_singular[7]="timesheet"
+model_list_singular[8]="week"
+
+index_link[0]="name"
+index_link[1]="assignments"
+index_link[2]="name"
+index_link[3]="first_name"
+index_link[4]="name"
+index_link[5]="timesheet.week.start_date"
+index_link[6]="timesheet.week.start_date"
+index_link[7]="timesheet.week.start_date"
+index_link[8]="start_date"
+
+index_link[0]="name"
+index_link[1]="assignments"
+index_link[2]="name"
+index_link[3]="first_name"
+index_link[4]="name"
+index_link[5]="timesheet.week.start_date"
+index_link[6]="timesheet.week.start_date"
+index_link[7]="timesheet.week.start_date"
+index_link[8]="start_date"
+
+function model_we_know() {
+  found_model=1
+  for(( i=0; i<=8; i++ )) {
+    if [ ${1} == ${model_list[$i]} ]; then
+      model_singular=${model_list_singular[$i]}
+      model_plural=${model_list[$i]}
+      index_link=${index_link[$i]}
+      found_model=0
+      break
+    fi 
+  }
+  return ${found_model}
+}
+
+function generate_index_html() {
+  date | awk -v singular=$1 -v plural=$2 -v link=$3 -v other_field=$4 '{
+    if(plural == "timesheet_histories"){
+      title="Timesheet History"
+      iterator="th"
+    } else if(plural == "timesheet_details"){
+      title="Timesheet Detail"
+      iterator="td"
+    } else {
+      title=sprintf("%s%s", toupper(substr(plural,1,1)), tolower(substr(plural,2,100)))
+      iterator=tolower(substr(plural,1,1))
+    }
+
+    printf("<h1>All %s</h1>\n", title)
+    printf("\n")
+    printf("<ul>\n")
+    printf("<%s @%s.each do |%s| %s>\n", "%", plural, iterator, "%")
+    printf("  <li><%s= link_to %s.%s, %s_path( %s ) %s>", "%", iterator, link, singular, iterator, "%")
+    if(other_field != "NONE"){
+      printf("( %s )\n", other_field)
+    } else {
+      printf("\n")
+    }
+    printf("<%s end %s>\n", "%", "%")
+    printf("</ul>\n")
+  }' 
+}
+
+start_dir=$(pwd)
+views_dir=/Users/brendanleonard/wdi/projects/project1/app/views
+for model in $(ls -1 ${views_dir}); do
+  model_we_know ${model}
+  if [ ${found_model} -eq 0 ]; then
+    cd ${views_dir}/${model}
+
+    # Delete files we don't need
+    for file in create.html.erb destroy.html.erb update.html.erb; do
+      if [ -f "${views_dir}/${file}" ]; then
+        log "Removing superfluous file [${views_dir}/${file}]"
+  #      rm ${views_dir}/${file}
+      fi
+    done
+
+    # Generate index.html.erb
+    tmp_file=${views_dir}/${model}/index.new.html.erb
+    if [ -f "${tmp_file}" ]; then
+      rm ${tmp_file}
+    fi
+    touch ${tmp_file}
+    generate_index_html ${model_singular} ${model_plural} ${index_link} NONE
+  else
+    log "We DO NOT care about ${model}"
+  fi
+done

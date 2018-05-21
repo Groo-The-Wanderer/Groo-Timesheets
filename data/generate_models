@@ -50,7 +50,7 @@ generate_model_create() {
 
 generate_controller_create() {
   log "Creating ${controller} controller"
-  printf "rails generate controller %s new create index show edit update destroy\n" "${controller}" >> ${controller_create_script}
+  printf "rails generate controller %s new create index show edit update destroy --force\n" "${controller}" >> ${controller_create_script}
   log "Finished Creating ${controller} controller"
 }
 
@@ -87,7 +87,7 @@ else
   generate_model_create
     
   model="Employee"
-  fields="name:string email:string start_date:date end_date:date password_digest:string"
+  fields="first_name:string last_name:string email:string start_date:date end_date:date password_digest:string"
   generate_model_create
   
   model="TimesheetDetail"
@@ -224,6 +224,8 @@ else
     generate_controller_create
   done
 
-  log "Running generarte controller script [${controller_create_script}]"
+  log "Running generate controller script [${controller_create_script}]"
   ${controller_create_script}
 fi
+
+./generate_controllers

@@ -15,6 +15,7 @@
 
 # Ignore generated files -- added by BL 2018.05.21
 /data/project1_*
+/app/views/backup/*
 
 # Ignore uploaded files in development
 /storage/*

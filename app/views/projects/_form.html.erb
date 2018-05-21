@@ -1,0 +1,22 @@
+<%= form_for @project do |p| %>
+
+  <%= p.label :name %>
+  <%= p.text_field :name %>
+  <br>
+  <%= p.label :client %>
+  <%= p.select :client_id, Client.pluck(:name, :id) %>
+  <br>
+  <%= p.label :start_date %>
+  <%= p.date_field :start_date %>
+  <br>
+  <%= p.label :end_date %>
+  <%= p.date_field :end_date %>
+  <br>
+  <%= p.label :billable %>
+  <%= p.select :billable_flag, ['true', 'false'] %>
+  <br>
+  <br>
+  <br>
+  <%= p.submit %>
+
+<% end %>

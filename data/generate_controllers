@@ -1,0 +1,144 @@
+#!/bin/bash
+
+log() {
+  output_date=$(date +'%Y%m%d:%H:%M:%S')
+  output_line=$(printf "[%s] %s\n" $output_date "$@")
+  echo ${output_line}
+}
+
+model_list[0]="activities"
+model_list[1]="assignments"
+model_list[2]="clients"
+model_list[3]="employees"
+model_list[4]="projects"
+model_list[5]="timesheet_details"
+model_list[6]="timesheet_histories"
+model_list[7]="timesheets"
+model_list[8]="weeks"
+
+model_list_singular[0]="activity"
+model_list_singular[1]="assignment"
+model_list_singular[2]="client"
+model_list_singular[3]="employee"
+model_list_singular[4]="project"
+model_list_singular[5]="timesheet_detail"
+model_list_singular[6]="timesheet_history"
+model_list_singular[7]="timesheet"
+model_list_singular[8]="week"
+
+function model_we_know() {
+  found_model=1
+  for(( i=0; i<=8; i++ )) {
+    if [ ${1} == ${model_list[$i]} ]; then
+      model_singular=${model_list_singular[$i]}
+      found_model=0
+      break
+    fi 
+  }
+  return ${found_model}
+}
+
+function create_controller_file() {
+  awk -v singular=$1 -v plural=$2 '{
+    if(NR==1){
+      print $0
+      printf("  before_action :get_%s, only: [ :show, :edit, :update, :destroy ]\n\n", singular)
+    }else{
+      if(singular == "timesheet_history"){
+        model="TimesheetHistory"
+      } else if(singular == "timesheet_detail"){
+        model="TimesheetDetail"
+      } else {
+        model=sprintf("%s%s", toupper(substr(singular,1,1)), tolower(substr(singular,2,100)))
+      }
+
+      if($0 ~ /def/){
+        method=$2
+        print $0
+        if(method == "new") {
+          printf("    @%s = %s.new\n", singular, model)
+        }
+
+        if(method == "create") {
+          printf("    %s = %s.create %s_params\n", singular, model, singular)
+          printf("    %s.save\n\n", singular)
+          printf("    redirect_to %s_path\n", plural)
+        }
+
+        if(method == "index") {
+          printf("    @%s = %s.all\n", plural, model)
+        }
+
+        if(method == "show") {
+          if(model == "Employee") {
+            printf("    @projects = @employee.projects.all\n")
+          }else if(model == "Project"){
+            printf("    @activities = @project.activities.all\n")
+          }
+        }
+
+        if(method == "update") {
+          printf("    @%s.update %s_params\n", singular, singular)
+          printf("    redirect_to %s_path params[:id]\n", singular)
+        }
+
+        if(method == "destroy") {
+          printf("    @%s.destroy\n", singular)
+          printf("    redirect_to %s_path\n", plural)
+          printf("  end\n", plural)
+          printf("\n")
+          printf("  private\n")
+          printf("  def %s_params\n", singular)
+          printf("    params.require(:%s).permit(", singular)
+          if(model == "Client") {
+            printf(":name, :prefix\n")
+          } else if(model == "Project") {
+            printf(":name, :client_id, :start_date, :end_date, :billable_flag, :parent_project_id)\n")
+          } else if(model == "Activity") {
+            printf(":name, :project_id, :start_date, :end_date, :billable_flag)\n")
+          } else if(model == "Assignment") {
+            printf(":employee_id, :project_id, :start_date, :end_date)\n")
+          } else if(model == "Employee") {
+            printf(":first_name, :last_name, :email, :start_date, :end_date)\n")
+          } else if(model == "Timesheet") {
+            printf(":employee_id, :week_id)\n")
+          } else if(model == "Week") {
+            printf(":start_date)\n")
+          } else if(model == "TimesheetHistory") {
+            printf(":start_date, :end_date)\n")
+          } else if(model == "TimesheetDetail") {
+            printf(":activity_id, :billable_flag, :day1_hours, :day2_hours, :day3_hours, :day4_hours, :day5_hours, :day6_hours, :day7_hours, :reviewed_flag)\n")
+          }
+          printf("  end\n")
+          printf("\n")
+          printf("  def get_%s\n", singular)
+          printf("    @%s = %s.find params[:id]\n", singular, model)
+        }
+      }else{
+        printf("%s\n", $0)
+      }
+    }
+  }' $3
+}
+
+controllers_dir=/Users/brendanleonard/wdi/projects/project1/app/controllers
+for file in $(ls -1 ${controllers_dir}); do
+  model=$(echo ${file} | sed 's/_controller.rb//')
+  model_we_know ${model}
+  if [ ${found_model} -eq 0 ]; then
+    tmp_file="${controllers_dir}/${model}.$$"
+    orig_file="${controllers_dir}/${file}"
+    backup_file=${orig_file}.$(date +'%Y%m%d%H%M%S')
+
+    log "Moving [${orig_file}] to [${backup_file}]"
+    cp ${orig_file} ${backup_file}
+
+    log "New version of [${model}] controller in [${tmp_file}]"
+    create_controller_file ${model_singular} ${model} ${orig_file} > ${tmp_file}
+
+    log "Renaming [${tmp_file}] to [${orig_file}]"
+    mv ${tmp_file} ${orig_file}
+  else
+    log "We DO NOT care about ${model}"
+  fi
+done

@@ -1,11 +1,19 @@
 class TimesheetsController < ApplicationController
+  before_action :get_timesheet, only: [ :show, :edit, :update, :destroy ]
+
   def new
+    @timesheet = Timesheet.new
   end
 
   def create
+    timesheet = Timesheet.create timesheet_params
+    timesheet.save
+
+    redirect_to timesheets_path
   end
 
   def index
+    @timesheets = Timesheet.all
   end
 
   def show
@@ -15,8 +23,21 @@ class TimesheetsController < ApplicationController
   end
 
   def update
+    timesheet.update timesheet_params
+    redirect_to timesheet_path params[:id]
   end
 
   def destroy
+    @timesheet.destroy
+    redirect_to timesheets_path
+  end
+
+  private
+  def timesheet_params
+    params.require(:timesheet).permit(:employee_id, :week_id)
+  end
+
+  def get_timesheet
+    @timesheet = Timesheet.find params[:id]
   end
 end

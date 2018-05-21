@@ -1,7 +1,10 @@
 <%= form_for @employee do |e| %>
 
-  <%= e.label :name %>
-  <%= e.text_field :name %>
+  <%= e.label :first_name %>
+  <%= e.text_field :first_name %>
+  <br>
+  <%= e.label :last_name %>
+  <%= e.text_field :last_name %>
   <br>
   <%= e.label :email %>
   <%= e.text_field :email %>
