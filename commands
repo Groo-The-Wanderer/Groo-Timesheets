@@ -1,0 +1,1 @@
+rails new project1 —skip-turbolinks —skip_spring -T -d postgresql

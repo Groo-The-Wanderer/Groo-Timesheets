@@ -1,0 +1,167 @@
+#!/bin/bash
+
+tab="  "
+script="./project1_generate"
+model_dir="/Users/brendanleonard/wdi/projects/project1/app/models"
+
+log() {
+  output_date=$(date +'%Y%m%d:%H:%M:%S')
+  output_line=$(printf "[%s] %s\n" $output_date "$@")
+  echo ${output_line}
+}
+
+generate_field_list() {
+  for field in ${fields}; do
+    printf "%s" "${tab}"
+    printf "%s\n" "${field}"
+  done
+}
+
+generate_model_create() {
+  log "Creating ${model} model"
+  printf "%s%s\n" "rails generate model ${model} ${fields}" >> ${script}
+  log "Finished Creating ${model} model"
+}
+
+if [ -n "${1}" ] && [ ${1} == "-G" ]; then
+  log "Skipping RAILS generate. Moving to models relationship setup"
+else
+  log "Generating ${script}"
+  if [ -f "${script}" ]; then
+    renamed=${script}.$(date +'%Y%m%d%H%M%S')
+    log "Script [${script}] exists - renaming to [${renamed}]"
+    mv ${script} ${script}.$(date +'%Y%m%d%H%M%S')
+  fi
+  touch ${script}
+  chmod 755 ${script}
+  
+  model="Client"
+  fields="name:string prefix:string project_count:integer"
+  generate_model_create
+  
+  model="Project"
+  fields="name:string client_id:integer start_date:date end_date:date billable_flag:boolean parent_project_id:integer"
+  generate_model_create
+  
+  model="Activity"
+  fields="name:string project_id:integer start_date:date end_date:date billable_flag:boolean"
+  generate_model_create
+  
+  model="Timesheet"
+  fields="employee_id:integer week_id:date"
+  generate_model_create
+  
+  model="Week"
+  fields="start_date:date end_date:date day1_date:date day2_date:date day3_date:date day4_date:date day5_date:date day6_date:date day7_date"
+  generate_model_create
+    
+  model="Employee"
+  fields="name:string email:string start_date:date end_date:date password_digest:string"
+  generate_model_create
+  
+  model="TimesheetDetail"
+  fields="timesheet_id:integer activity_id:integer billable_flag:boolean day1_hours:decimal day2_hours:decimal day3_hours:decimal day4_hours:decimal day5_hours:decimal day6_hours:decimal day7_hours:decimal total_hours:decimal reviewed_flag:boolean"
+  generate_model_create
+  
+  model="TimesheetHistory"
+  fields="timesheet_id:integer status:string"
+  generate_model_create
+  
+  model="EmployeeProject"
+  fields="employee_id:integer project_id:integer start_date:date end_date:date"
+  generate_model_create
+  
+  log "Running generate model script [${script}]"
+  ${script}
+fi
+  
+log "Establishing relationships in model files"
+for file in $(ls -1 ${model_dir}); do
+  model_file="${model_dir}/${file}"
+  if [ ! -f ${model_file} ]; then
+    continue
+  fi
+
+  model=$(echo ${file} | sed 's/\.rb//')
+  rel_types="belongs_to has_one has_many has_and_belongs_to_many"
+  found=0
+  for rel in ${rel_types}; do
+    if [ $(grep -c "${rel}" ${model_file}) -gt 0 ]; then
+      ((++found))
+    fi
+  done
+
+  if [ ${found} -gt 0 ]; then
+    log "Relationships found in [${model}] file; skipping"
+    continue
+  fi
+
+  log "Setting relationships for [${model}]"
+  case "${model}" in 
+    client)
+      awk '/^class/ { print;
+                      print "  has_many :projects"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    project)
+      awk '/^class/ { print;
+                      print "  has_many :activities"
+                      print "  belongs_to :client"
+                      print "  has_many :employees, through: :employee_projects"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    activity)
+      awk '/^class/ { print;
+                      print "  has_many :timesheet_details"
+                      print "  belongs_to :project"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    employee)
+      awk '/^class/ { print;
+                      print "  has_many :timesheets"
+                      print "  has_many :projects, through: :employee_projects"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    timesheet)
+      awk '/^class/ { print;
+                      print "  belongs_to :employee"
+                      print "  belongs_to :week"
+                      print "  has_many :timesheet_details"
+                      print "  has_many :timesheet_histories"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    timesheet_detail)
+      awk '/^class/ { print;
+                      print "  belongs_to :timesheet"
+                      print "  belongs_to :activity"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    timesheet_history)
+      awk '/^class/ { print;
+                      print "  belongs_to :timesheet"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    week)
+      awk '/^class/ { print;
+                      print "  has_many :timesheets"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    employee_project)
+      awk '/^class/ { print;
+                      print "  belongs_to :project"
+                      print "  belongs_to :employee"
+                      next }1' ${model_file} > ${model_file}.new
+      mv ${model_file}.new ${model_file}
+      ;;
+    *)
+      log "No relationship for model [${model}]"
+  esac
+done

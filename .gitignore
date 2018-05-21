@@ -13,6 +13,9 @@
 !/log/.keep
 !/tmp/.keep
 
+# Ignore generated files -- added by BL 2018.05.21
+/data/project1_*
+
 # Ignore uploaded files in development
 /storage/*
 
