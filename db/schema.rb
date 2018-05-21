@@ -25,19 +25,19 @@ ActiveRecord::Schema.define(version: 2018_05_20_235136) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.string "name"
-    t.string "prefix"
-    t.integer "project_count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "employee_projects", force: :cascade do |t|
+  create_table "assignments", force: :cascade do |t|
     t.integer "employee_id"
     t.integer "project_id"
     t.date "start_date"
     t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "prefix"
+    t.integer "project_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -52,7 +52,7 @@ else
   generate_model_create
   
   model="Week"
-  fields="start_date:date end_date:date day1_date:date day2_date:date day3_date:date day4_date:date day5_date:date day6_date:date day7_date"
+  fields="start_date:date end_date:date day1_date:date day2_date:date day3_date:date day4_date:date day5_date:date day6_date:date day7_date:date"
   generate_model_create
     
   model="Employee"
@@ -67,7 +67,7 @@ else
   fields="timesheet_id:integer status:string"
   generate_model_create
   
-  model="EmployeeProject"
+  model="Assignment"
   fields="employee_id:integer project_id:integer start_date:date end_date:date"
   generate_model_create
   
@@ -108,7 +108,8 @@ for file in $(ls -1 ${model_dir}); do
       awk '/^class/ { print;
                       print "  has_many :activities"
                       print "  belongs_to :client"
-                      print "  has_many :employees, through: :employee_projects"
+                      print "  has_many :assignments"
+                      print "  has_many :employees, through: :assignments"
                       next }1' ${model_file} > ${model_file}.new
       mv ${model_file}.new ${model_file}
       ;;
@@ -122,7 +123,8 @@ for file in $(ls -1 ${model_dir}); do
     employee)
       awk '/^class/ { print;
                       print "  has_many :timesheets"
-                      print "  has_many :projects, through: :employee_projects"
+                      print "  has_many :assignments"
+                      print "  has_many :projects, through: :assignments"
                       next }1' ${model_file} > ${model_file}.new
       mv ${model_file}.new ${model_file}
       ;;
@@ -154,7 +156,7 @@ for file in $(ls -1 ${model_dir}); do
                       next }1' ${model_file} > ${model_file}.new
       mv ${model_file}.new ${model_file}
       ;;
-    employee_project)
+    assignments)
       awk '/^class/ { print;
                       print "  belongs_to :project"
                       print "  belongs_to :employee"

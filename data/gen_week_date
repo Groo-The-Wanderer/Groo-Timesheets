@@ -1,0 +1,54 @@
+#!/bin/bash
+days[1]=31
+days[2]=28
+days[3]=31
+days[4]=30
+days[5]=31
+days[6]=30
+days[7]=31
+days[8]=31
+days[9]=30
+days[10]=31
+days[11]=30
+days[12]=31
+
+year=2018
+m=0
+w=0
+day=0
+d_counter=0
+new_wk=0
+continue=0
+
+while [ ${m} -lt 12  ]; do
+  ((++m))
+  while [ $day -lt ${days[$m]} ]; do
+    ((++day))
+
+    if [ ${new_wk} -eq 0 ]; then
+      ((++w))
+      printf "w%s = Week.create " ${w}
+      printf "start_date: \"%s/%02s/%02s\", " ${year} ${m} ${day}
+      end_d=$(expr ${day} + 6)
+      end_month=${m}
+      if [ ${end_d} -gt ${days[$m]} ]; then
+        end_month=$(expr ${m} + 1)
+        end_d=$(expr ${end_d} - ${days[$m]})
+      fi
+      printf "end_date: \"%s/%02s/%02s\", " ${year} ${end_month} ${end_d}
+      new_wk=1
+      d_counter=0
+    fi
+
+    ((++d_counter))
+
+    if [ ${d_counter} -eq 7 ]; then
+      printf "day%s_date: \"%s/%02s/%02s\"\n" ${d_counter} ${year} ${m} ${day}
+      new_wk=0
+    else
+      printf "day%s_date: \"%s/%02s/%02s\", " ${d_counter} ${year} ${m} ${day}
+    fi
+
+  done
+  day=0
+done

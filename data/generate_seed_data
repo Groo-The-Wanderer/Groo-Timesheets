@@ -1,8 +1,7 @@
 #!/bin/bash
 
 tab="  "
-script="./project1_generate"
-model_dir="/Users/brendanleonard/wdi/projects/project1/app/models"
+db_dir="/Users/brendanleonard/wdi/projects/project1/app/models"
 
 log() {
   output_date=$(date +'%Y%m%d:%H:%M:%S')
@@ -10,34 +9,9 @@ log() {
   echo ${output_line}
 }
 
-generate_field_list() {
-  for field in ${fields}; do
-    printf "%s" "${tab}"
-    printf "%s\n" "${field}"
-  done
-}
-
-generate_model_create() {
-  log "Creating ${model} model"
-  printf "%s%s\n" "rails generate model ${model} ${fields}" >> ${script}
-  log "Finished Creating ${model} model"
-}
-
-if [ -n "${1}" ] && [ ${1} == "-G" ]; then
-  log "Skipping RAILS generate. Moving to models relationship setup"
-else
-  log "Generating ${script}"
-  if [ -f "${script}" ]; then
-    renamed=${script}.$(date +'%Y%m%d%H%M%S')
-    log "Script [${script}] exists - renaming to [${renamed}]"
-    mv ${script} ${script}.$(date +'%Y%m%d%H%M%S')
-  fi
-  touch ${script}
-  chmod 755 ${script}
-  
-  model="Client"
-  fields="name:string prefix:string project_count:integer"
-  generate_model_create
+model="Client"
+fields="name:string prefix:string project_count:integer"
+generate_model_create
   
   model="Project"
   fields="name:string client_id:integer start_date:date end_date:date billable_flag:boolean parent_project_id:integer"

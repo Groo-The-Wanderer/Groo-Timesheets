@@ -1,4 +1,5 @@
 class Employee < ApplicationRecord
   has_many :timesheets
-  has_many :projects, through: :employee_projects
+  has_many :assignments
+  has_many :projects, through: :assignments
 end
