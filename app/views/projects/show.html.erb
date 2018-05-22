@@ -5,12 +5,30 @@
       <div class="box-header with-border">
         <h3 class="box-title">Project Details for <%= @project.name %></h3>
       </div> <!-- box-header with-border -->
+
       <div class="box-body">
-        <p><label>Name: </label><%= @project.name %></p>
-        <p>Client: <%= @project.client.name %></p>
-        <p>Start Date: <%= @project.start_date %></p>
-        <p>End Date: <%= @project.end_date %></p>
-        <p>Billable: <%= @project.billable_flag %></p>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2">Name:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @project.name, class: "form-control", disabled: true %></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Client:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @project.client.name, class: "form-control", disabled: true %></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Start Date:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @project.start_date, class: "form-control", disabled: true %></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">End Date:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @project.end_date, class: "form-control", disabled: true %></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Billable:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @project.billable_flag, class: "form-control", disabled: true %></div>
+            </div>
+        </form>
         <div class="row border-top border-bottom">
             <div class="col-sm-3 col-xs-6">
                 <div class="description-block border-right">
