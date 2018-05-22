@@ -1,7 +1,11 @@
 class ClientsController < ApplicationController
   before_action :get_client, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "All Clients", :clients_path
+
   def new
+    add_breadcrumb "Add a New Client", :new_client_path
+
     @client = Client.new
   end
 
@@ -17,10 +21,13 @@ class ClientsController < ApplicationController
   end
 
   def show
+    add_breadcrumb "Client Details for #{ @client.name }", :client_path
+
     @projects = @client.projects.all
   end
 
   def edit
+    add_breadcrumb "Edit Client [#{ @client.name }]", :edit_client_path
   end
 
   def update

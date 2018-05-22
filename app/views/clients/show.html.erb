@@ -1,14 +1,48 @@
-<h1>Client <%= @client.name %> (<%= @client.prefix %>)</h1>
+<section class="content-header">
+  <h1>Client Maintenance</h1>
+  <ol class="breadcrumb">
+    <%= render_breadcrumbs :tag => :li, :separator => "&nbsp;&nbsp; > &nbsp;&nbsp;" %>
+  </ol>
+</section>
+<section class="content">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Client Details for <%= @client.name %></h3>
+      </div> <!-- box-header with-border -->
 
-<p>Name: <%= @client.name %></p>
-<p>Prefix: <%= @client.prefix %></p>
-
-<h2>Projects:</h2>
-<ul>
-<% @projects.each do |p| %>
-    <li><%= link_to p.name, project_path( p ) %></li>
-<% end %>
-</ul>
-
-<%= link_to "Edit", edit_client_path( @client ) %>
-<%= link_to "Delete", client_path( @client ), method: :delete %>
+      <div class="box-body">
+        <form>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Name:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @client.name, class: "form-control", disabled: true %></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Prefix:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @client.prefix, class: "form-control", disabled: true %></div>
+            </div>
+        </form>
+        <div class="row border-top border-bottom">
+            <div class="col-sm-3 col-xs-6">
+                <div class="description-block border-right">
+                    <%= link_to "Edit Client", edit_client_path( @client ) %>
+                </div>
+            </div> <!-- col-sm-3 col-xs-6 -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="description-block border-right">
+                    <%= link_to "Delete Client", client_path( @client ), method: :delete, data: {confirm: "Do you really want to delete this client?", title: "Confirm Deletion"} %>
+                </div> <!-- col-sm-3 col-xs-6 -->
+            </div> <!-- col-sm-3 col-xs-6 -->
+        </div> <!-- row -->
+        <div class="box-header">
+            <h3 class="box-title">Client Projects:</h3>
+        </div>
+        <ul>
+        <% @projects.each do |p| %>
+            <li><%= link_to p.name, project_path( p ) %></li>
+        <% end %>
+        </ul>
+      </div> <!-- box-body -->
+    </div> <!-- box -->
+  </div> <!-- col-md-12 -->
+</section> <!-- content -->

@@ -1,3 +1,28 @@
-<h1>Edit Client <%= @client.name %>&nbsp;(<%= @client.prefix %>)</h1>
+<section class="content-header">
+  <h1>Client Maintenance</h1>
+  <ol class="breadcrumb">
+    <%= render_breadcrumbs :tag => :li, :separator => "&nbsp;&nbsp; > &nbsp;&nbsp;" %>
+  </ol>
+</section>
+<section class="content">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Editing Client [<%= @client.name %>]</h3>
+      </div> <!-- box-header with-border -->
 
-<%= render partial: "form" %>
+      <div class="box-body">
+        <%= render partial: "form" %>
+
+        <div class="box-header border-top">
+            <h3 class="box-title">Client Projects:</h3>
+        </div>
+        <ul>
+        <% @client.projects.each do |p| %>
+            <li><%= link_to p.name, project_path( p ) %></li>
+        <% end %>
+        </ul>
+      </div> <!-- box-body -->
+    </div> <!-- box -->
+  </div> <!-- col-md-12 -->
+</section> <!-- content -->
