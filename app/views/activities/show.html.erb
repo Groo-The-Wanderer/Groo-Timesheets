@@ -1,2 +1,10 @@
-<h1>Activities#show</h1>
-<p>Find me in app/views/activities/show.html.erb</p>
+<h1>Activity <%= @activity.name %></h1>
+
+<p>Name: <%= @activity.name %></p>
+<p>Project: <%= @activity.project.name %> (<%= @activity.project.client.name %>)</p>
+<p>Start Date: <%= @activity.start_date %></p>
+<p>End Date: <%= @activity.end_date %></p>
+<p>Billable: <%= @activity.billable_flag %></p>
+
+<%= link_to "Edit", edit_activity_path( @activity ) %>
+<%= link_to "Delete", activity_path( @activity ), method: :delete %>

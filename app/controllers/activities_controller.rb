@@ -13,7 +13,8 @@ class ActivitiesController < ApplicationController
   end
 
   def index
-    @activities = Activity.all
+    @projects = Project.all
+    @activities = Activity.all.joins(:project).order(:project_id, :start_date)
   end
 
   def show
@@ -23,7 +24,7 @@ class ActivitiesController < ApplicationController
   end
 
   def update
-    activity.update activity_params
+    @activity.update activity_params
     redirect_to activity_path params[:id]
   end
 

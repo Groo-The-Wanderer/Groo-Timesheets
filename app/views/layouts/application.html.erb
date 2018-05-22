@@ -8,8 +8,16 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
-  </body>
+    <div class="wrapper">
+      <header class="main-head">The header</header>
+      <nav class="main-nav">Navigation Bar</nav>
+      <div class="main-content">
+        <%= yield %>
+      </div>
+      <div class="side-left">Side Left</div>
+      <div class="side-right">Side Right</div>
+      <footer class="main-footer">Footer</footer>
+    </div>
+  </body>  
 </html>

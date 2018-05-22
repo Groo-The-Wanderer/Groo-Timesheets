@@ -1,0 +1,184 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+
+  font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: 400;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 100px auto 100px;
+  grid-template-rows: 48px auto 48px;
+}
+
+.main-head {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+
+  background-color: #367fa9;
+}
+
+.main-nav {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.main-content {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  background-color: #ecf0f5
+}
+
+.side-left {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  background-color: #222d32
+}
+
+.side-right {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  background-color: #ecf0f5
+}
+
+.main-footer {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 3;
+
+  background: #fff;
+  padding: 15px;
+  color: #444;
+  border-top: 1px solid #d2d6de;
+}
+
+.content {
+  min-height: 250px;
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.content-header {
+  background: transparent;
+  position: relative;
+  padding: 15px 15px 0 15px;
+}
+
+.content-header > h1 {
+  margin: 0px;
+  font-size: 24px;
+}
+
+.content-header>h1>small {
+  font-size: 15px;
+  display: inline-block;
+  padding-left: 4px;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Source Sans Pro',sans-serif;
+  font-weight: 500;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  border-top: 3px solid #d2d6de;
+  margin-bottom: 20px;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.box .border-right {
+  border-right: 1px solid #f4f4f4;
+}
+
+.box-header {
+  color: #444;
+  display: block;
+  padding: 12px;
+  position: relative;
+}
+
+.box-header.with-border {
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.box-header .box-title {
+  display: inline-block;
+  font-size: 20px;
+  margin: 0;
+  line-height: 1;
+}
+
+.box-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 10px;
+}
+
+.box-footer {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top: 1px solid #f4f4f4;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.description-block {
+  display: block;
+  margin: 10px 0;
+  text-align: center;
+}

@@ -1,2 +1,13 @@
-<h1>Activities#index</h1>
-<p>Find me in app/views/activities/index.html.erb</p>
+<h1>All Activities for Project</h1>
+
+<%= select_tag :projects, options_for_select(Project.all.pluck(:name, :id)) %>
+
+<br>
+<br>
+<% @projects.each do |p| %>
+    <div id="project_<%= p.id %>", class="hidden">
+    <% p.activities.each do |a| %>
+        <li><%= a.project.client.name %> <%= link_to a.name, activity_path( a ) %> (<%= a.project.name %>)</li>
+    <% end %>
+    </div>
+<% end %>
