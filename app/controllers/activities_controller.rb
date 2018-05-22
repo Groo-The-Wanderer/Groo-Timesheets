@@ -1,7 +1,11 @@
 class ActivitiesController < ApplicationController
   before_action :get_activity, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "All Activities for Project", :activities_path
+
   def new
+    add_breadcrumb "Add a New Activity", :new_activity_path
+
     @activity = Activity.new
   end
 
@@ -18,9 +22,11 @@ class ActivitiesController < ApplicationController
   end
 
   def show
+    add_breadcrumb "Activity Details for #{ @activity.name }", :activity_path
   end
 
   def edit
+    add_breadcrumb "Edit Activity [#{ @activity.name }]", :edit_activity_path
   end
 
   def update

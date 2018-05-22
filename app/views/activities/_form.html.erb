@@ -1,22 +1,25 @@
 <%= form_for @activity do |a| %>
-
-  <%= a.label :name %>
-  <%= a.text_field :name %>
-  <br>
-  <%= a.label :project %>
-  <%= a.select :project_id, Project.pluck(:name, :id) %>
-  <br>
-  <%= a.label :start_date %>
-  <%= a.date_field :start_date %>
-  <br>
-  <%= a.label :end_date %>
-  <%= a.date_field :end_date %>
-  <br>
-  <%= a.label :billable %>
-  <%= a.select :billable_flag, ['true', 'false'] %>
-  <br>
-  <br>
-  <br>
-  <%= a.submit 'Save', class: 'btn btn-primary' %>
-
+  <div class="form-group">
+      <%= a.label(:name, "Name:", class: "control-label col-sm-2") %>
+      <div class="col-sm-8"><%= a.text_field :name, class: "form-control" %></div>
+  </div>
+  <div class="form-group">
+      <%= a.label(:project, "Project:", class: "control-label col-sm-2") %>
+      <div class="col-sm-8"><%= a.select(:project_id, Project.pluck(:name, :id), {}, { class: "form-control" }) %></div>
+  </div>
+  <div class="form-group">
+      <%= a.label(:start_date, "Start Date:", class: "control-label col-sm-2") %>
+      <div class="col-sm-8"><%= a.date_field(:start_date, class: "form-control") %></div>
+  </div>
+  <div class="form-group">
+      <%= a.label(:end_date, "End Date:", class: "control-label col-sm-2") %>
+      <div class="col-sm-8"><%= a.date_field(:end_date, class: "form-control") %></div>
+  </div>
+  <div class="form-group">
+      <%= a.label(:billable, "Billable:", class: "control-label col-sm-2") %>
+      <div class="col-sm-8"><%= a.select(:billable_flag, ['true', 'false'], {}, { class: "form-control" }) %></div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-8"><%= a.submit "Submit", class: "btn btn-primary" %></div>
+  </div>
 <% end %>
