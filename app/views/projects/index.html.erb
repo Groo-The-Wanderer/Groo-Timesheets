@@ -11,6 +11,13 @@
             <li><%= link_to p.name, project_path( p ) %> (<%= p.client.name %>)</li>
         <% end %>
         </ul>
+        <div class="row border-top">
+          <div class="col-sm-3 col-xs-6">
+            <div class="description-block border-right">
+              <%= link_to "Add New Project", new_project_path %>
+            </div>
+          </div> <!-- col-sm-3 col-xs-6 -->
+        </div> <!-- row -->
       </div> <!-- box-body -->
     </div> <!-- box -->
   </div> <!-- col-md-12 -->

@@ -61,3 +61,4 @@ gem 'rails_12factor', group: :production
 # Added by BL 2018.05.22
 gem 'bootstrap', '~> 4.1', '>= 4.1.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'data-confirm-modal'

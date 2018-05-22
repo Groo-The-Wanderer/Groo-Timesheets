@@ -7,7 +7,7 @@
       </div> <!-- box-header with-border -->
 
       <div class="box-body">
-        <form class="form-horizontal">
+        <form>
             <div class="form-group">
                 <label class="control-label col-sm-2">Name:</label>
                 <div class="col-sm-8"><%= text_field_tag :none, @project.name, class: "form-control", disabled: true %></div>
@@ -37,7 +37,7 @@
             </div> <!-- col-sm-3 col-xs-6 -->
             <div class="col-sm-3 col-xs-6">
                 <div class="description-block border-right">
-                    <%= link_to "Delete Project", project_path( @project ), method: :delete %>
+                    <%= link_to "Delete Project", project_path( @project ), method: :delete, data: {confirm: "Do you really want to delete this project?", title: "Confirm Deletion"} %>
                 </div> <!-- col-sm-3 col-xs-6 -->
             </div> <!-- col-sm-3 col-xs-6 -->
         </div> <!-- row -->
