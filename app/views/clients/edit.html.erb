@@ -1,2 +1,3 @@
-<h1>Clients#edit</h1>
-<p>Find me in app/views/clients/edit.html.erb</p>
+<h1>Edit Client <%= @client.name %>&nbsp;(<%= @client.prefix %>)</h1>
+
+<%= render partial: "form" %>

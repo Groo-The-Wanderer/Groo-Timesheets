@@ -1,2 +1,14 @@
-<h1>Clients#show</h1>
-<p>Find me in app/views/clients/show.html.erb</p>
+<h1>Client <%= @client.name %> (<%= @client.prefix %>)</h1>
+
+<p>Name: <%= @client.name %></p>
+<p>Prefix: <%= @client.prefix %></p>
+
+<h2>Projects:</h2>
+<ul>
+<% @projects.each do |p| %>
+    <li><%= link_to p.name, project_path( p ) %></li>
+<% end %>
+</ul>
+
+<%= link_to "Edit", edit_client_path( @client ) %>
+<%= link_to "Delete", client_path( @client ), method: :delete %>

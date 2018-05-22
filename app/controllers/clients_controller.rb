@@ -17,13 +17,14 @@ class ClientsController < ApplicationController
   end
 
   def show
+    @projects = @client.projects.all
   end
 
   def edit
   end
 
   def update
-    client.update client_params
+    @client.update client_params
     redirect_to client_path params[:id]
   end
 
@@ -34,7 +35,7 @@ class ClientsController < ApplicationController
 
   private
   def client_params
-    params.require(:client).permit(:name, :prefix
+    params.require(:client).permit(:name, :prefix)
   end
 
   def get_client
