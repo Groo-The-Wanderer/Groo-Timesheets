@@ -1,7 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :get_project, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "All Projects", :projects_path
+
   def new
+    add_breadcrumb "Add a New Project", :new_project_path
+
     @project = Project.new
   end
 
@@ -17,10 +21,13 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    add_breadcrumb "Project Details for #{ @project.name }", :project_path
+
     @activities = @project.activities.all
   end
 
   def edit
+    add_breadcrumb "Edit Project [#{ @project.name }]", :edit_project_path
   end
 
   def update

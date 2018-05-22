@@ -62,3 +62,4 @@ gem 'rails_12factor', group: :production
 gem 'bootstrap', '~> 4.1', '>= 4.1.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'data-confirm-modal'
+gem 'breadcrumbs_on_rails'
