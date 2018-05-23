@@ -1,7 +1,11 @@
 class EmployeesController < ApplicationController
   before_action :get_employee, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "All Employees", :employees_path
+
   def new
+    add_breadcrumb "Add a New Employee", :new_employee_path
+
     @employee = Employee.new
   end
 
@@ -17,10 +21,15 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    @projects = @employee.projects.all
+    add_breadcrumb "Employee Details for #{ @employee.first_name + " " + @employee.last_name }", :employee_path
+
+    @start_date = @employee.start_date.present? ? @employee.start_date.strftime("%d/%m/%Y") : nil
+    @end_date = @employee.end_date.present? ? @employee.end_date.strftime("%d/%m/%Y") : nil
   end
 
   def edit
+    add_breadcrumb "Edit Employee #{ @employee.first_name + " " + @employee.last_name }", :edit_employee_path
+
   end
 
   def update

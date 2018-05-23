@@ -23,6 +23,10 @@ class ActivitiesController < ApplicationController
 
   def show
     add_breadcrumb "Activity Details for #{ @activity.name }", :activity_path
+
+    @start_date = @activity.start_date.present? ? @activity.start_date.strftime("%d/%m/%Y") : nil
+    @end_date = @activity.end_date.present? ? @activity.end_date.strftime("%d/%m/%Y") : nil
+
   end
 
   def edit

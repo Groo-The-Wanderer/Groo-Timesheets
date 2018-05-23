@@ -22,8 +22,6 @@ class ClientsController < ApplicationController
 
   def show
     add_breadcrumb "Client Details for #{ @client.name }", :client_path
-
-    @projects = @client.projects.all
   end
 
   def edit

@@ -23,7 +23,8 @@ class ProjectsController < ApplicationController
   def show
     add_breadcrumb "Project Details for #{ @project.name }", :project_path
 
-    @activities = @project.activities.all
+    @start_date = @project.start_date.present? ? @project.start_date.strftime("%d/%m/%Y") : nil
+    @end_date = @project.end_date.present? ? @project.end_date.strftime("%d/%m/%Y") : nil
   end
 
   def edit

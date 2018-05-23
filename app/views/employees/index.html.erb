@@ -1,7 +1,29 @@
-<h1>All Employees</h1>
-
-<ul>
-<% @employees.each do |e| %>
-    <li><%= link_to e.first_name, employee_path( e ) %> (<%= e.email %>)</li>
-<% end %>
-</ul>
+<section class="content-header">
+  <h1>Employee Maintenance</h1>
+  <ol class="breadcrumb">
+    <%= render_breadcrumbs :tag => :li, :separator => "&nbsp;&nbsp; > &nbsp;&nbsp;" %>
+  </ol>
+</section>
+<section class="content">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">All Employees</h3>
+      </div> <!-- box-header with-border -->
+      <div class="box-body">
+        <ul>
+        <% @employees.each do |e| %>
+            <li><%= link_to e.first_name, employee_path( e ) %> (<%= e.email %>)</li>
+        <% end %>
+        </ul>
+        <div class="row border-top">
+          <div class="col-sm-3 col-xs-6">
+            <div class="description-block border-right">
+              <%= link_to "Add New Employee", new_employee_path %>
+            </div>
+          </div> <!-- col-sm-3 col-xs-6 -->
+        </div> <!-- row -->
+      </div> <!-- box-body -->
+    </div> <!-- box -->
+  </div> <!-- col-md-12 -->
+</section> <!-- content -->

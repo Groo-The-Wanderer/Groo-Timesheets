@@ -38,7 +38,7 @@
             <h3 class="box-title">Client Projects:</h3>
         </div>
         <ul>
-        <% @projects.each do |p| %>
+        <% @client.projects.each do |p| %>
             <li><%= link_to p.name, project_path( p ) %></li>
         <% end %>
         </ul>
