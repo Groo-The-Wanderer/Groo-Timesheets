@@ -23,7 +23,7 @@ class TimesheetsController < ApplicationController
   end
 
   def update
-    timesheet.update timesheet_params
+    @timesheet.update timesheet_params
     redirect_to timesheet_path params[:id]
   end
 
@@ -34,7 +34,7 @@ class TimesheetsController < ApplicationController
 
   private
   def timesheet_params
-    params.require(:timesheet).permit(:employee_id, :week_id)
+    params.require(:timesheet).permit(:employee_id, :week_id, timesheet_details_attributes: [ :id, :activity_id, :billable_flag, :day1_hours, :day2_hours, :day3_hours, :day4_hours, :day5_hours, :day6_hours, :day7_hours, :total_hours, :_destroy ])
   end
 
   def get_timesheet

@@ -12,6 +12,8 @@ Activity.destroy_all
 Week.destroy_all
 Employee.destroy_all
 Assignment.destroy_all
+Timesheet.destroy_all
+
 
 # Client
 c1 = Client.create name: "Commonwealth Bank of Australia", prefix: "CBA", project_count: 0
@@ -122,3 +124,13 @@ puts "Created [#{ Employee.all.length }] Employees"
 
 e1.projects << p1 << p2 << p3 << p4
 e2.projects << p1 << p4
+
+t1 = Timesheet.create employee_id: 1, week_id: 18
+t2 = Timesheet.create employee_id: 1, week_id: 19
+t3 = Timesheet.create employee_id: 1, week_id: 20
+t4 = Timesheet.create employee_id: 1, week_id: 21
+puts "Created [#{ Timesheet.all.length }] Timesheets"
+
+td1 = TimesheetDetail.create timesheet_id: 4, activity_id: 1, billable_flag: true, day1_hours: 2, day2_hours: 3, day3_hours: 4, day4_hours: 5, day5_hours: 6, total_hours: 20 
+td2 = TimesheetDetail.create timesheet_id: 4, activity_id: 2, billable_flag: true, day1_hours: 6, day2_hours: 5, day3_hours: 4, day4_hours: 3, day5_hours: 2, total_hours: 20
+puts "Created [#{ TimesheetDetails.all.length }] TimesheetDetails"

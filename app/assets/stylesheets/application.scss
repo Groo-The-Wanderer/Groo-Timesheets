@@ -213,3 +213,40 @@ form {
   right: 10px;
   border-radius: 2px;
 }
+
+.form-control {
+  box-shadow: none;
+  border-color: #d2d6de;
+}
+
+.timesheet-row .input-sm {
+  margin: 0 5px;
+  text-align: center;
+  width: 70px;
+  height: 36px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.timesheet-detail-select {
+  width: 180px;
+  height: 30px;
+  font-size: 12px;
+  border: 1px solid #d2d6de;
+  border-radius: 0px;
+  padding: 6px 12px;
+  height: 34px;
+  margin: 0 5px;
+}
+
+.timesheet-detail-select-boolean {
+  width: 60px;
+  height: 30px;
+  font-size: 12px;
+  border: 1px solid #d2d6de;
+  border-radius: 0px;
+  padding: 6px 12px;
+  height: 34px;
+  margin: 0 5px;
+}

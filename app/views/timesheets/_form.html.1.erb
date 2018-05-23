@@ -1,0 +1,45 @@
+  <%= form_for @timesheet do |t| %>
+    <%= t.label(:employee_id, "Employee:") %>
+    <%= t.select(:employee_id, Employee.all.pluck(:first_name, :id), {}, { class: "form-control" }) %>
+    <br>
+    <%= t.label(:week_id, "Week:") %>
+    <%= t.select(:week_id, Week.all.pluck(:start_date, :id), {}, { class: "form-control" }) %>
+    <br>
+
+    <div class="items">
+      <%= t.nested_fields_for :timesheet_details do |t| %>
+        <fieldset class="item">
+          <%= t.label :activity_id %>
+          <%= t.text_field :activity_id %>
+
+          <%# <%= select(:activity_id, Activity.all.pluck(:name, :id), {}, { class: "form-control" }) %>
+
+          <a href="#" class="remove">remove</a>
+          <%= t.hidden_field :id %>
+          <%= t.hidden_field :_destroy %>
+        </fieldset>
+      <% end %>
+    </div>
+    <a href="#" class="add">Add</a>
+      <%# <%= t.text_field :activity_id %>
+      <%# <%= td.select(:activity_id, Activity.all.pluck(:name, :id), {}, { class: "form-control" }) %>
+      <br>
+      <%# <%= td.label(:billable_flag, "Billable:") %>
+      <%# <%= td.select(:billable_flag, ['true','false'], {}, { class: "form-control" }) %>
+      <br>
+      <%# <%= td.text_field :day1_hours, class: "form-control" %> 
+      <%# <%= td.text_field :day2_hours, class: "form-control" %> 
+      <%# <%= td.text_field :day3_hours, class: "form-control" %> 
+      <%# <%= td.text_field :day4_hours, class: "form-control" %> 
+      <%# <%= td.text_field :day5_hours, class: "form-control" %> 
+      <%# <%= td.text_field :day6_hours, class: "form-control" %> 
+      <%# <%= td.text_field :day7_hours, class: "form-control" %> 
+
+
+        <%# <%= render partial: "timesheet_detail_fields", t: builder %> 
+        <br>
+
+    <%# <%= link_to_add_fields 'Add row', t, :timesheet_details %><br> 
+
+    <%= t.submit %>
+  <% end %>

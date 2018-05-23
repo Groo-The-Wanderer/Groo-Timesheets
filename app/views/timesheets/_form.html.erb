@@ -1,0 +1,14 @@
+  <%= form_for @timesheet do |t| %>
+    <%= t.label(:employee_id, "Employee:") %>
+    <div class="col-xs-1"><%= t.select(:employee_id, Employee.all.pluck(:first_name, :id), {}, { class: "form-control timesheet-detail-select" }) %></div>
+    <br>
+    <%= t.label(:week_id, "Week:") %>
+    <%= t.select(:week_id, Week.all.pluck(:start_date, :id), {}, { class: "form-control timesheet-detail-select" }) %>
+    <br>
+
+    <%= t.fields_for :timesheet_details do |td| %>
+      <%= render partial: "timesheet_detail_fields", locals: { t: td } %>
+    <% end %>
+
+    <div class="col-xs-2"><%= t.submit "Submit", class: "btn btn-primary" %></div>
+  <% end %>

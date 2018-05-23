@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_143334) do
 
   create_table "timesheets", force: :cascade do |t|
     t.integer "employee_id"
-    t.date "week_id"
+    t.integer "week_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
