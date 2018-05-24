@@ -39,7 +39,7 @@ class TimesheetsController < ApplicationController
 
   def update
     @timesheet.update timesheet_params
-    redirect_to timesheet_path params[:id]
+    redirect_to timesheets_path
   end
 
   def destroy
