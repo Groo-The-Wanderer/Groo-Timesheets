@@ -12,23 +12,25 @@
       </div> <!-- box-header with-border -->
 
       <div class="box-body">
-        <div class="form-group">
-          <%= label_tag(:employee_id, "Employee:", { class: "control-label col-sm-2" }) %>
-          <div class="col-sm-8">
-            <%= select_tag(:employee_id, options_for_select(Employee.all.pluck(:name, :id)), { :selected => @current_user.id, class: "form-control" }) %>
-          </div> <!-- col-sm-8 -->
-        </div> <!-- form-group -->
-        <div class="form-group">
-          <%= label_tag(:week_id, "Week:", { class: "control-label col-sm-2" }) %>
-          <div class="col-sm-8">
-            <%= select_tag(:week_id, options_for_select(Week.all.pluck(:name, :id)), { class: "form-control" }) %>
-          </div> <!-- col-sm-8 -->
-        </div> <!-- form-group -->
-        <div class="form-group">
-          <div class="col-sm-8">
-            <%= link_to "Open Timesheet", {}, form_class: "btn btn-primary" %>
+        <%= form_tag( new_timesheet_path ) %>
+          <div class="form-group">
+            <%= label_tag(:employee_id, "Employee:", { class: "control-label col-sm-2" }) %>
+            <div class="col-sm-8">
+              <%= select_tag(:employee_id, options_for_select(Employee.all.pluck(:name, :id)), { :selected =>   @current_user.id, class: "form-control" }) %>
+            </div> <!-- col-sm-8 -->
+          </div> <!-- form-group -->
+          <div class="form-group">
+            <%= label_tag(:week_id, "Week:", { class: "control-label col-sm-2" }) %>
+            <div class="col-sm-8">
+              <%= select_tag(:week_id, options_for_select(Week.all.pluck(:name, :id)), { class: "form-control" })   %>
+            </div> <!-- col-sm-8 -->
+          </div> <!-- form-group -->
+          <div class="form-group">
+            <div class="col-sm-8">
+              <%= submit_tag "Open Timesheet", { class: "btn btn-primary" } %>
+            </div>
           </div>
-        </div>
+        </form>
       </div> <!-- box-body -->
     </div> <!-- box -->
   </div> <!-- col-md-12 -->
