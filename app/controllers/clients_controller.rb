@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   before_action :get_client, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "Home", :root_path
   add_breadcrumb "All Clients", :clients_path
 
   def new

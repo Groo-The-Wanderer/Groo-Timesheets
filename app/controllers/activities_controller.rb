@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :get_activity, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "Home", :root_path
   add_breadcrumb "All Activities for Project", :activities_path
 
   def new

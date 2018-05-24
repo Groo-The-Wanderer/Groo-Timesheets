@@ -1,6 +1,9 @@
 class TimesheetsController < ApplicationController
   before_action :get_timesheet, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "Home", :root_path
+  add_breadcrumb "New Timesheet", :new_timesheet_path
+
   def new
     @timesheet = Timesheet.new
   end

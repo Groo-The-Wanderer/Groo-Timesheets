@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :get_project, only: [ :show, :edit, :update, :destroy ]
 
+  add_breadcrumb "Home", :root_path
   add_breadcrumb "All Projects", :projects_path
 
   def new
