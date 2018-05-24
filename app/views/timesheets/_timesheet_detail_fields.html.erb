@@ -1,8 +1,8 @@
-  <div class="nested-fields form-group form-row container-fluid">
-    <div>
+  <div class="nested-fields form-group form-row">
+    <div class="col-md-2">
       <div><%= f.select(:activity_id, Activity.all.pluck(:name, :id), {}, { class: "form-control form-control-sm" }) %></div>
     </div>
-    <div>
+    <div class="col-md-1">
       <div><%= f.select(:billable_flag, ['true','false'], {}, { class: "form-control form-control-sm" }) %></div>
     </div>
 
@@ -16,6 +16,6 @@
     <div class="col-md-1"><%= f.text_field :total_hours, { class: "form-control form-control-sm", disabled: true } %></div>
     
     <%= f.hidden_field :_destroy %>
-    <div><%= link_to_remove_association '', f, { class: 'form-control-sm fa fa-fw fa-trash-o' } %></div>
+    <div class="col-md-1"><%= link_to_remove_association '', f, { class: 'form-control-sm fa fa-fw fa-trash-o' } %></div>
   </div>
 
