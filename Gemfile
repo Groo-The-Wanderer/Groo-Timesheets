@@ -63,5 +63,5 @@ gem 'bootstrap', '~> 4.1', '>= 4.1.1'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'data-confirm-modal'
 gem 'breadcrumbs_on_rails'
-gem 'link_to_add_fields'
 gem 'cocoon'
+gem "font-awesome-rails"

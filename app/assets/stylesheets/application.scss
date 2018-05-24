@@ -10,12 +10,14 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import "font-awesome";
 
 html {
   box-sizing: border-box;
@@ -249,4 +251,20 @@ form {
   padding: 6px 12px;
   height: 34px;
   margin: 0 5px;
+}
+
+.icon::before {
+  text-align: center;
+  display: inline-block;
+  margin-right: .5em;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+
+.col-form-label {
+  text-align: right;
 }

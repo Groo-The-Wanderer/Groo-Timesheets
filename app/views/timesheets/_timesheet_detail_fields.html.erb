@@ -16,5 +16,5 @@
     <div class="field col-xs-1"><%= f.text_field :total_hours, class: "form-control input-sm" %></div>
     
     <%= f.hidden_field :_destroy %>
-    <i class="fa fa-trash-o"><%= link_to_remove_association 'Remove Detail', f %></i>
+    <%= link_to_remove_association '', f, { class: 'fa fa-trash-o' } %>
   </div>

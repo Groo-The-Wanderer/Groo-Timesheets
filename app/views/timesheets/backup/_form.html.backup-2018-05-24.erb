@@ -1,0 +1,45 @@
+  <%= form_for @timesheet, :html => {:class => "form-horizontal" } do |f| %>
+    <div class="form-group row">
+      <%= f.label(:employee_id, "Employee:", { class: "col-sm-1 col-form-label" } ) %>
+      <div class="col-sm-2">
+        <%= f.select(:employee_id, Employee.all.pluck(:first_name, :id), { :selected => @current_user.id }, { class: "form-control timesheet-detail-select" }) %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <%= f.label(:week_id, "Week:", { class: "col-sm-1 col-form-label" } ) %>
+      <div class="col-sm-2">
+        <%= f.select(:week_id, Week.all.pluck(:start_date, :id), {}, { class: "form-control timesheet-detail-select" }) %>
+      </div>
+    </div>
+    <div id="timesheet_details">
+      <table>
+        <tr>
+          <thead>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Billable">Billable</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="day1_">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+            <td class="form-group col-xs-1"><label class="col-sm-1" for="Activity">Activity</label></td>
+          </thead>
+        </tr>
+        <tr>
+        <%= f.fields_for :timesheet_details do |td| %>
+          <%= render "timesheet_detail_fields", :f => td %>
+        <% end %>
+        </tr>
+        <tr>
+        <div class="links">
+          <%= link_to_add_association 'add detail', f, :timesheet_details %>
+        </div>
+        </tr>
+      </table>
+    </div>
+    <tr>
+    <td><div class="col-xs-2"><%= f.submit "Submit", class: "btn btn-primary" %></div></td>
+    <tr>
+  <% end %>
