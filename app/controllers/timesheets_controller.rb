@@ -16,6 +16,7 @@ class TimesheetsController < ApplicationController
   end
 
   def index
+    add_breadcrumb "Open Timesheet", :timesheets_path
     @timesheets = Timesheet.all
   end
 

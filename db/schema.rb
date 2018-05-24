@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_143334) do
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
+    t.string "name"
     t.string "email"
     t.date "start_date"
     t.date "end_date"
@@ -98,6 +99,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_143334) do
   create_table "weeks", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
+    t.string "name"
     t.date "day1_date"
     t.date "day2_date"
     t.date "day3_date"

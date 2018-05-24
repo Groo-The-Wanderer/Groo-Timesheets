@@ -1,0 +1,20 @@
+  <div class="nested-fields timesheet-row form-group row">
+    <div class="field">
+      <div class="col-xs-1"><%= f.select(:activity_id, Activity.all.pluck(:name, :id), {}, { class: "form-control timesheet-detail-select" }) %></div>
+    </div>
+    <div class="field">
+      <div class="col-xs-1"><%= f.select(:billable_flag, ['true','false'], {}, { class: "form-control timesheet-detail-select-boolean" }) %></div>
+    </div>
+
+    <div class="field col-xs-1"><%= f.text_field :day1_hours, class: "col-md-3 form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :day2_hours, class: "form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :day3_hours, class: "form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :day4_hours, class: "form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :day5_hours, class: "form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :day6_hours, class: "form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :day7_hours, class: "form-control input-sm" %></div>
+    <div class="field col-xs-1"><%= f.text_field :total_hours, class: "form-control input-sm" %></div>
+    
+    <%= f.hidden_field :_destroy %>
+    <%= link_to_remove_association '', f, { class: 'fa fa-trash-o' } %>
+  </div>

@@ -12,6 +12,7 @@ class EmployeesController < ApplicationController
 
   def create
     employee = Employee.create employee_params
+    employee.name = employee.first_name + " " + employee.last_name
     employee.save
 
     redirect_to employees_path
@@ -22,19 +23,22 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    add_breadcrumb "Employee Details for #{ @employee.first_name + " " + @employee.last_name }", :employee_path
+    add_breadcrumb "Employee Details for #{ @employee.name }", :employee_path
 
     @start_date = @employee.start_date.present? ? @employee.start_date.strftime("%d/%m/%Y") : nil
     @end_date = @employee.end_date.present? ? @employee.end_date.strftime("%d/%m/%Y") : nil
   end
 
   def edit
-    add_breadcrumb "Edit Employee #{ @employee.first_name + " " + @employee.last_name }", :edit_employee_path
+    add_breadcrumb "Edit Employee #{ @employee.name }", :edit_employee_path
 
   end
 
   def update
     @employee.update employee_params
+    @employee.name = @employee.first_name + " " + @employee.last_name
+    @employee.save
+    
     redirect_to employee_path params[:id]
   end
 

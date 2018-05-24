@@ -1,2 +1,34 @@
-<h1>Timesheets#show</h1>
-<p>Find me in app/views/timesheets/show.html.erb</p>
+<section class="content-header">
+  <h1>Timesheet Entry / Update / Query</h1>
+  <ol class="breadcrumb">
+    <%= render_breadcrumbs :tag => :li, :separator => "&nbsp;&nbsp; > &nbsp;&nbsp;" %>
+  </ol>
+</section>
+<section class="content">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Select the Timesheet to Open</h3>
+      </div> <!-- box-header with-border -->
+
+      <div class="box-body">
+        <%= form_for @timesheet do |f| %>
+          <%= f.label(:employee_id, "Employee:", { class: "control-label col-sm-2" }) %>
+          <div class="col-sm-8">
+            <%= f.select(:employee_id, Employee.all.pluck(:first_name, :id), { :selected => @current_user.id }, { class: "form-control timesheet-detail-select" }) %>
+          </div>
+
+          <%= f.label(:week_id, "Week:", { class: "control-label col-sm-2" }) %>
+          <div class="col-sm-8">
+            <%= f.select(:week_id, Week.all.pluck(:start_date, :id), {}, { class: "form-control timesheet-detail-select" }) %>
+          <div>
+          <div class="form-group">
+            <div class="col-sm-8">
+              <%= f.submit "Open Timesheet", class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </div> <!-- box-body -->
+    </div> <!-- box -->
+  </div> <!-- col-md-12 -->
+</section> <!-- content -->

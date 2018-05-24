@@ -3,6 +3,7 @@ class CreateWeeks < ActiveRecord::Migration[5.2]
     create_table :weeks do |t|
       t.date :start_date
       t.date :end_date
+      t.string :name
       t.date :day1_date
       t.date :day2_date
       t.date :day3_date

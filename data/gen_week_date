@@ -36,6 +36,8 @@ while [ ${m} -lt 12  ]; do
         end_d=$(expr ${end_d} - ${days[$m]})
       fi
       printf "end_date: \"%s/%02s/%02s\", " ${year} ${end_month} ${end_d}
+      name_yr=$(echo ${year} | cut -c3,4)
+      printf "name: \"%02s/%02s/%s - %02s/%02s/%s\", " ${day} ${m} ${year} ${end_d} ${end_month} ${year}
       new_wk=1
       d_counter=0
     fi

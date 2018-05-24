@@ -1,0 +1,17 @@
+  <%= form_for @timesheet do |f| %>
+    <%= f.label(:employee_id, "Employee:") %>
+    <div class="col-xs-1"><%= f.select(:employee_id, Employee.all.pluck(:first_name, :id), { :selected => @current_user.id }, { class: "form-control timesheet-detail-select" }) %></div>
+    <br>
+    <%= f.label(:week_id, "Week:") %>
+    <%= f.select(:week_id, Week.all.pluck(:start_date, :id), {}, { class: "form-control timesheet-detail-select" }) %>
+    <br>
+    <div id="timesheet_details">
+      <%= f.fields_for :timesheet_details do |td| %>
+        <%= render "timesheet_detail_fields", :f => td %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association 'add detail', f, :timesheet_details %>
+      </div>
+    </div>
+    <div class="col-xs-2"><%= f.submit "Submit", class: "btn btn-primary" %></div>
+  <% end %>
