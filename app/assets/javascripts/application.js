@@ -16,5 +16,5 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require data-confirm-modal
-//= require link_to_add_fields
+//= require cocoon
 //= require_tree .
