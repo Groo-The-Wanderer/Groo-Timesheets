@@ -221,58 +221,20 @@ form {
   border-color: #d2d6de;
 }
 
-.timesheet-row .input-sm {
-  margin: 0 5px;
-  text-align: center;
-  width: 70px;
-  height: 38px;
-  padding: 5px 10px;
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.timesheet-detail-select {
-  width: 180px;
-  height: 30px;
-  font-size: 12px;
-  border: 1px solid #d2d6de;
-  border-radius: 0px;
-  padding: 6px 12px;
-  height: 34px;
-  margin: 0 5px;
-}
-
-.timesheet-detail-select-boolean {
-  width: 60px;
-  height: 30px;
-  font-size: 12px;
-  border: 1px solid #d2d6de;
-  border-radius: 0px;
-  padding: 6px 12px;
-  height: 34px;
-  margin: 0 5px;
-}
-
-.icon::before {
-  text-align: center;
-  display: inline-block;
-  margin-right: .5em;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transform: translate(0, 0);
-}
-
 .col-form-label {
   text-align: right;
 }
 
-table {
-  width: 100%;
+.btn-default {
+  border-color: #ccc;
+  margin-left: 15px;
 }
 
-td {
-  border: 1px solid black;
+.icon a {
+  font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.col-head {
+  text-align: left;
+  font-weight: 600;
 }

@@ -1,13 +1,27 @@
   <%= form_for @timesheet do |f| %>
     <%= f.hidden_field :employee_id %>
     <%= f.hidden_field :week_id %>
-    <div id="timesheet_details container-fluid">
+    <div id="timesheet_details">
+      <div class="form-row container-fluid">
+        <div class="col-md-2 col-head">Activity</div>
+        <div class="col-md-1 col-head">Billable</div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day1_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day2_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day3_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day4_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day5_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day6_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head"><%= @timesheet.week.day7_date.strftime("%a %-d/%m") %></div>
+        <div class="col-md-1 col-head">Total Hours</div>
+      </div>
+
       <%= f.fields_for :timesheet_details do |td| %>
         <%= render "timesheet_detail_fields", :f => td %>
       <% end %>
-      <div class="links">
-        <%= link_to_add_association 'add detail', f, :timesheet_details %>
-      </div>
+     
     </div>
-    <div class="col-xs-2"><%= f.submit "Save Timesheet", class: "btn btn-primary" %></div>
+    <div class="links">
+      <%= f.submit "Save Timesheet", class: "btn btn-primary" %>
+      <%= link_to_add_association 'Add Row', f, :timesheet_details, { class: "btn btn-default", role: "button" }%>
+    </div>
   <% end %>
