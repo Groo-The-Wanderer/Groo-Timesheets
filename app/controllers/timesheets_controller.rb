@@ -2,7 +2,6 @@ class TimesheetsController < ApplicationController
   before_action :get_timesheet, only: [ :show, :edit, :update, :destroy ]
 
   add_breadcrumb "Home", :root_path
-  add_breadcrumb "New Timesheet", :new_timesheet_path
 
   def new
     @timesheet = Timesheet.new
@@ -20,10 +19,22 @@ class TimesheetsController < ApplicationController
     @timesheets = Timesheet.all
   end
 
+  def open # Edit if it exists or create if not
+    employee = params[:employee_id]
+    week = params[:week_id]
+
+    @timesheet = Timesheet.find_or_initialize_by(employee_id: employee, week_id: week);
+    @timesheet.save
+
+    redirect_to edit_timesheet_path @timesheet
+  end
+
   def show
   end
 
   def edit
+    add_breadcrumb "Open Timesheet", :timesheets_path
+    add_breadcrumb "#{ @timesheet.employee.name } Timesheet for week #{ @timesheet.week.name }", :edit_timesheet_path
   end
 
   def update
