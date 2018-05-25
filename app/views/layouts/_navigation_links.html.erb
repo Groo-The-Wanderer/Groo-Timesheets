@@ -56,4 +56,13 @@
         </div>
       </li>
   </div>
+  <div class="navbar-custom-menu">
+  <% if @current_user.present? %>
+    Hello <span class="nav-name"><%= @current_user.first_name %></span>, 
+    <% if @is_admin %>
+      [Admin]
+    <% end %>
+    <%= link_to "Logout", logout_path %>
+  <% end %>
+  </div>
 </nav>
