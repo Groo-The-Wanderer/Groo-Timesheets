@@ -40,8 +40,12 @@ class TimesheetsController < ApplicationController
   end
 
   def update
-    @timesheet.update timesheet_params
-    redirect_to timesheets_path
+    if @timesheet.update timesheet_params
+      redirect_to timesheets_path
+    else
+      flash[:error] = @timesheet.errors.full_messages #"There are errors in your timesheet"
+      redirect_to edit_timesheet_path @timesheet
+    end
   end
 
   def destroy

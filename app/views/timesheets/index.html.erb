@@ -16,7 +16,11 @@
           <div class="form-group">
             <%= label_tag(:employee_id, "Employee:", { class: "control-label col-sm-2" }) %>
             <div class="col-sm-8">
-              <%= select_tag(:employee_id, options_for_select(Employee.all.pluck(:name, :id)), { :selected =>   @current_user.id, class: "form-control" }) %>
+              <% if @is_admin %>
+                <%= select_tag(:employee_id, options_for_select(Employee.all.pluck(:name, :id)), { :selected =>   @current_user.id, class: "form-control" }) %>
+              <% else %>
+                <%= select_tag(:employee_id, options_for_select([[ @current_user.name, @current_user.id ]]), { :selected => @current_user.id, class: "form-control" }) %>
+              <% end %>
             </div> <!-- col-sm-8 -->
           </div> <!-- form-group -->
           <div class="form-group">
