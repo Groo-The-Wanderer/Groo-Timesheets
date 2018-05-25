@@ -5,56 +5,67 @@
       <li class="nav-item active">
         <%= link_to "Home", root_path, class: "nav-link" %>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Timesheets
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "Open Timesheets", timesheets_path, class: "dropdown-item" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Approve Timesheets", "#", class: "dropdown-item" %>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Clients
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "All Clients", clients_path, class: "dropdown-item" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Add New", new_client_path, class: "dropdown-item" %>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Projects
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "All Projects", projects_path, class: "dropdown-item" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Add New", new_project_path, class: "dropdown-item" %>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Activities
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "All Activities", projects_path, class: "dropdown-item" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Add New", new_activity_path, class: "dropdown-item" %>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Employees
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "All Employees", employees_path, class: "dropdown-item" %>
-          <div class="dropdown-divider"></div>
-          <%= link_to "Add New", new_employee_path, class: "dropdown-item" %>
-        </div>
-      </li>
+
+      <% if @current_user.present? %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"   aria-haspopup="true" aria-expanded="false">
+            Timesheets
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Open Timesheets", timesheets_path, class: "dropdown-item" %>
+            <% if @is_admin %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Approve Timesheets", "#", class: "dropdown-item" %>
+            </div>
+            <% else %>
+            </div>
+            <% end %>
+        </li>
+
+        <% if @is_admin %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"   data-toggle="dropdown"   aria-haspopup="true" aria-expanded="false">
+              Clients
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "All Clients", clients_path, class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Add New", new_client_path, class: "dropdown-item" %>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"   data-toggle="dropdown"   aria-haspopup="true" aria-expanded="false">
+              Projects
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "All Projects", projects_path, class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Add New", new_project_path, class: "dropdown-item" %>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"   data-toggle="dropdown"   aria-haspopup="true" aria-expanded="false">
+              Activities
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "All Activities", projects_path, class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Add New", new_activity_path, class: "dropdown-item" %>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"   data-toggle="dropdown"   aria-haspopup="true" aria-expanded="false">
+              Employees
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "All Employees", employees_path, class: "dropdown-item" %>
+              <div class="dropdown-divider"></div>
+              <%= link_to "Add New", new_employee_path, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
   </div>
   <div class="navbar-custom-menu">
   <% if @current_user.present? %>
