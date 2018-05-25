@@ -118,8 +118,8 @@ w51 = Week.create start_date: "2018/12/17", end_date: "2018/12/23", name: "17/12
 w52 = Week.create start_date: "2018/12/24", end_date: "2018/12/30", name: "24/12/2018 - 30/12/2018", day1_date: "2018/12/24", day2_date: "2018/12/25", day3_date: "2018/12/26", day4_date: "2018/12/27", day5_date: "2018/12/28", day6_date: "2018/12/29", day7_date: "2018/12/30"
 puts "Created [#{ Week.all.length }] Weeks"
 
-e1 = Employee.create first_name: "Brendan", last_name: "Leonard", name: "Brendan Leonard", email: "bl@gmail.com", start_date: "2017/05/20", password: "chicken", password_confirmation: "chicken"
-e2 = Employee.create first_name: "Nathan", last_name: "Del Medico", name: "Nathan Del Medico", email: "nathan@gmail.com", start_date: "2018/01/15", password: "chicken", password_confirmation: "chicken"
+e1 = Employee.create first_name: "Brendan", last_name: "Leonard", name: "Brendan Leonard", email: "bl@gmail.com", start_date: "2017/05/20", admin_flag: true, password: "chicken", password_confirmation: "chicken"
+e2 = Employee.create first_name: "Nathan", last_name: "Del Medico", name: "Nathan Del Medico", email: "nathan@gmail.com", start_date: "2018/01/15", admin_flag: false, password: "chicken", password_confirmation: "chicken"
 puts "Created [#{ Employee.all.length }] Employees"
 
 e1.projects << p1 << p2 << p3 << p4

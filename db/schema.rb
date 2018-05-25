@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2018_05_21_143334) do
     t.string "email"
     t.date "start_date"
     t.date "end_date"
+    t.boolean "admin_flag"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

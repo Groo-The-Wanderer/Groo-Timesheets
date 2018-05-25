@@ -33,6 +33,10 @@
                 <label class="control-label col-sm-2">End Date:</label>
                 <div class="col-sm-8"><%= text_field_tag :none, @end_date, class: "form-control", disabled: true %></div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2">Admin User:</label>
+                <div class="col-sm-8"><%= text_field_tag :none, @employee.admin_flag, class: "form-control", disabled: true %></div>
+            </div>
         </form>
         <div class="row border-top border-bottom">
             <div class="col-sm-3 col-xs-6">

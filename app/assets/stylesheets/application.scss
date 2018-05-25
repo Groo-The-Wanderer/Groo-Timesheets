@@ -34,7 +34,7 @@ body {
 .wrapper {
   display: grid;
   grid-template-columns: 100px auto 100px;
-  grid-template-rows: 48px auto 48px;
+  grid-template-rows: 56px auto 48px;
 }
 
 .main-head {
@@ -42,8 +42,7 @@ body {
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 1;
-
-  background-color: #367fa9;
+  background-color: #3c8dbc;
 }
 
 .main-nav {
@@ -237,4 +236,13 @@ form {
 .col-head {
   text-align: center;
   font-weight: 600;
+  color: #f39c12;
+}
+
+.form-control-sm {
+  text-align: right;
+}
+
+.dropdown-menu {
+  margin: 0.5rem 0 0;
 }

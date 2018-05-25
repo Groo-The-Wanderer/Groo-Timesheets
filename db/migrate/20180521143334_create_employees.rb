@@ -7,6 +7,7 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :email
       t.date :start_date
       t.date :end_date
+      t.boolean :admin_flag
       t.string :password_digest
 
       t.timestamps
