@@ -8,14 +8,15 @@
   <div class="col-md-12">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Select the Timesheet to Open</h3>
+        <h3 class="box-title">Select the 22 Timesheet to Open</h3>
       </div> <!-- box-header with-border -->
 
       <div class="box-body">
         <%= form_for @timesheet do |f| %>
           <%= f.label(:employee_id, "Employee:", { class: "control-label col-sm-2" }) %>
           <div class="col-sm-8">
-            <%= f.select(:employee_id, Employee.all.pluck(:first_name, :id), { :selected => @current_user.id }, { class: "form-control timesheet-detail-select" }) %>
+          <% raise "hell" %>
+            <%= f.select(:employee_id, options_for_select(Employee.all.pluck(:first_name, :id), @current_user.id), { class: "form-control timesheet-detail-select" }) %>
           </div>
 
           <%= f.label(:week_id, "Week:", { class: "control-label col-sm-2" }) %>
