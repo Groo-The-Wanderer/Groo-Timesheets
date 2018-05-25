@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  before_action :check_if_admin
+
   before_action :get_client, only: [ :show, :edit, :update, :destroy ]
 
   add_breadcrumb "Home", :root_path

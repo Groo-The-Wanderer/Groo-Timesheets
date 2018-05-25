@@ -1,4 +1,6 @@
 class TimesheetsController < ApplicationController
+  before_action :check_if_logged_in
+
   before_action :get_timesheet, only: [ :show, :edit, :update, :destroy ]
 
   add_breadcrumb "Home", :root_path

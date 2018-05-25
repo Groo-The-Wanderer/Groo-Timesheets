@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get "/login"              => "session#new"      # show the login form
   post "/login"             => "session#create"   # submit the login and authenticate
-  delete "/login"           => "session#destroy"
+  get "/logout"           => "session#destroy"
 
   post "/timesheet/open"    => "timesheets#open"
 

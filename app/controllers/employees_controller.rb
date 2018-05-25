@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_action :check_if_admin
   before_action :get_employee, only: [ :show, :edit, :update, :destroy ]
 
   add_breadcrumb "Home", :root_path
