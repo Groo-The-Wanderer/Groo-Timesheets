@@ -2,7 +2,7 @@
 
 _**Groo Timesheets**_ is a website that is used to capture timesheet details for a professional services firm. Professional Services firms sell 'time' to clients. This 'time' can be bundled in various forms (e.g. time-and-materials by the hour, by day of effort, by entire project on a fixed price, by outcome or milestone on a project, etc. or a mix of any of these).
 
-Regardless of how the 'time' is sold, fundamental to all of it is that accurate data is captured on what the firm's employees are doing. This information could be used to generate billings for customers or to help manager's estimate effort on projects.
+Regardless of how the 'time' is sold, fundamental to all of it is that accurate data is captured on what the firm's employees are doing. This information could be used to generate billings for customers or to help managers estimate effort on projects or to help project managers manage the budget on a project.
 
 This site was built as a 2nd project half-way through a 12-week web development course (see [WDi from General Assembly](https://generalassemb.ly/education/web-development-immersive?where=sydney)). It was built over 5 days.
 
