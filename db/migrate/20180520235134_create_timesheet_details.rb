@@ -11,7 +11,6 @@ class CreateTimesheetDetails < ActiveRecord::Migration[5.2]
       t.decimal :day5_hours
       t.decimal :day6_hours
       t.decimal :day7_hours
-      t.decimal :total_hours
       t.boolean :reviewed_flag
 
       t.timestamps

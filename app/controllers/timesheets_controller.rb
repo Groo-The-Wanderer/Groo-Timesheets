@@ -42,6 +42,7 @@ class TimesheetsController < ApplicationController
   def update
     if @timesheet.update timesheet_params
       redirect_to timesheets_path
+      flash[:notice] = "#{ @timesheet.employee.name }'s Timesheet for week #{ @timesheet.week.name }  was successfully saved"
     else
       flash[:error] = @timesheet.errors.full_messages #"There are errors in your timesheet"
       redirect_to edit_timesheet_path @timesheet
@@ -55,7 +56,7 @@ class TimesheetsController < ApplicationController
 
   private
   def timesheet_params
-    params.require(:timesheet).permit(:employee_id, :week_id, timesheet_details_attributes: [ :id, :activity_id, :billable_flag, :day1_hours, :day2_hours, :day3_hours, :day4_hours, :day5_hours, :day6_hours, :day7_hours, :total_hours, :_destroy ])
+    params.require(:timesheet).permit(:employee_id, :week_id, timesheet_details_attributes: [ :id, :activity_id, :billable_flag, :day1_hours, :day2_hours, :day3_hours, :day4_hours, :day5_hours, :day6_hours, :day7_hours, :_destroy ])
   end
 
   def get_timesheet

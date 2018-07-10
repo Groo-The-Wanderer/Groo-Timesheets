@@ -6,14 +6,14 @@
       <div><%= f.select(:billable_flag, ['true','false'], {}, { class: "form-control form-control-sm" }) %></div>
     </div>
 
-    <div class="col-md-1"><%= f.text_field :day1_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :day2_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :day3_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :day4_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :day5_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :day6_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :day7_hours, class: "form-control form-control-sm" %></div>
-    <div class="col-md-1"><%= f.text_field :total_hours, { class: "form-control form-control-sm", disabled: true } %></div>
+    <div class="col-md-1"><%= f.text_field :day1_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :day2_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :day3_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :day4_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :day5_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :day6_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :day7_hours, class: "form-control form-control-sm hours-field" %></div>
+    <div class="col-md-1"><%= f.text_field :nil, { class: "form-control form-control-sm total-hours-field", disabled: true } %></div>
     
     <%= f.hidden_field :_destroy %>
     <div class="col-md-1"><%= link_to_remove_association '', f, { class: 'form-control-sm fa fa-fw fa-trash-o' } %></div>
